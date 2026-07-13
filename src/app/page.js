@@ -1,55 +1,32 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import Link from "next/link";
+import data from "../../data/data.json";
 
 export default function Home() {
+  const { events_categories } = data;
   return (
     <div className={styles.intro}>
-      <Link href="/" className={styles.container}>
-        <Image
-          src="/next.svg"
-          alt="Events in London"
-          width={350}
-          height={200}
-          style={{filter: "invert(100%)"}}
-        />
-        <h2>Events in London</h2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident
-          nemo labore nisi nam ab autem quidem quod repudiandae. Vel officiis
-          eligendi, commodi laborum suscipit quidem!
-        </p>
-      </Link>
-      <Link href="/" className={styles.container}>
-        <Image
-          src="/next.svg"
-          alt="Events in San Francisco"
-          width={350}
-          height={200}
-          style={{filter: "invert(100%)"}}
-        />
-        <h2>Events in San Francisco</h2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident
-          nemo labore nisi nam ab autem quidem quod repudiandae. Vel officiis
-          eligendi, commodi laborum suscipit quidem!
-        </p>
-      </Link>
-      <Link href="/" className={styles.container}>
-        <Image
-          src="/next.svg"
-          alt="Events in Barcelona"
-          width={350}
-          height={200}
-          style={{filter: "invert(100%)"}}
-        />
-        <h2>Events in Barcelona</h2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident
-          nemo labore nisi nam ab autem quidem quod repudiandae. Vel officiis
-          eligendi, commodi laborum suscipit quidem!
-        </p>
-      </Link>
+      {events_categories.map((eventCategory) => (
+        <Link
+          href={`/events/${eventCategory.id}`}
+          className={styles.container}
+          key={eventCategory.id}
+        >
+          <Image
+            src={eventCategory.image}
+            alt={eventCategory.title}
+            width={300}
+            height={0}
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+          />
+          <h2>{eventCategory.title}</h2>
+          <p>{eventCategory.description}</p>
+        </Link>
+      ))}
     </div>
   );
 }

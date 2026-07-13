@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Page() {
+export default function EventsPerCityPage() {
   return (
     <div>
       <h1>Events in London</h1>

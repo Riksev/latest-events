@@ -1,4 +1,4 @@
-export default function Page() {
+export default function EventPage() {
   return (
     <div>
       <h1>Event 1 in London</h1>
