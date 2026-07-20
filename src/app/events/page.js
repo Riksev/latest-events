@@ -1,42 +1,28 @@
 import Image from "next/image";
 import Link from "next/link";
+import data from "../../../data/data.json";
+import styles from ".././page.module.css";
 
 export default function EventsPage() {
+  const { events_categories } = data;
   return (
-    <div>
+    <div className={styles.intro}>
       <h1>Events</h1>
-      <div>
-        <Link href="/events/london">
+      {events_categories.map((eventCategory) => (
+        <Link
+          href={`/events/${eventCategory.id}2`}
+          className={styles.container}
+          key={eventCategory.id}
+        >
           <Image
-            src="/next.svg"
-            alt="Events in London"
-            width={350}
-            height={200}
-            style={{ filter: "invert(100%)" }}
+            src={eventCategory.image}
+            alt={eventCategory.title}
+            width={500}
+            height={400}
           />
-          <h2>Events in London</h2>
+          <h2>{eventCategory.title}</h2>
         </Link>
-        <Link href="/events/san_francisco">
-          <Image
-            src="/next.svg"
-            alt="Events in San Francisco"
-            width={350}
-            height={200}
-            style={{ filter: "invert(100%)" }}
-          />
-          <h2>Events in San Francisco</h2>
-        </Link>
-        <Link href="/events/barcelona">
-          <Image
-            src="/next.svg"
-            alt="Events in Barcelona"
-            width={350}
-            height={200}
-            style={{ filter: "invert(100%)" }}
-          />
-          <h2>Events in Barcelona</h2>
-        </Link>
-      </div>
+      ))}
     </div>
   );
 }

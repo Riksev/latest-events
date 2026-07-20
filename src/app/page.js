@@ -7,6 +7,7 @@ export default function Home() {
   const { events_categories } = data;
   return (
     <div className={styles.intro}>
+      <h1>Home</h1>
       {events_categories.map((eventCategory) => (
         <Link
           href={`/events/${eventCategory.id}`}
@@ -16,12 +17,8 @@ export default function Home() {
           <Image
             src={eventCategory.image}
             alt={eventCategory.title}
-            width={300}
-            height={0}
-            style={{
-              width: "100%",
-              height: "100%",
-            }}
+            width={400}
+            height={300}
           />
           <h2>{eventCategory.title}</h2>
           <p>{eventCategory.description}</p>
