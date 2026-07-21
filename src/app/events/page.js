@@ -10,9 +10,9 @@ export default function EventsPage() {
       <h1>Events</h1>
       {events_categories.map((eventCategory) => (
         <Link
-          href={`/events/${eventCategory.id}2`}
+          href={`/events/${eventCategory.id}`}
           className={styles.container}
-          key={eventCategory.id}
+          key={eventCategory.id + "2"}
         >
           <Image
             src={eventCategory.image}
