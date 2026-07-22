@@ -1,6 +1,17 @@
 import Link from "next/link";
+import data from "../../../../data/data.json";
 
-export default function EventsPerCityPage() {
+export async function generateStaticParams() {
+  return data.events_categories.map((category) => ({
+    city: category.id,
+  }));
+}
+
+export const dynamicParams = false;
+
+export default async function EventsPerCityPage({ params }) {
+  const { city } = await params;
+  console.log(city);
   return (
     <div>
       <h1>Events in London</h1>
