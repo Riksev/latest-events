@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import data from "../../../../data/data.json";
 
 export async function generateStaticParams() {
@@ -11,20 +12,26 @@ export const dynamicParams = false;
 
 export default async function EventsPerCityPage({ params }) {
   const { city } = await params;
-  console.log(city);
+  const { allEvents } = data;
+  const events = allEvents.filter((event) => event.city.toLowerCase() === city);
   return (
     <div>
-      <h1>Events in London</h1>
+      <h1>Events in {city[0].toUpperCase() + city.slice(1)}</h1>
       <div>
-        <Link href="/events/london/event1">
-          <h2>Event 1</h2>
-        </Link>
-        <Link href="/events/london/event2">
-          <h2>Event 2</h2>
-        </Link>
-        <Link href="/events/london/event3">
-          <h2>Event 3</h2>
-        </Link>
+        {events.map((event) => (
+          <Link
+            href={`/events/${event.city.toLowerCase()}/${event.id}`}
+            key={event.id}
+          >
+            <Image
+              src={event.image}
+              alt={event.title}
+              width={430}
+              height={275}
+            />
+            <h2>{event.title}</h2>
+          </Link>
+        ))}
       </div>
     </div>
   );
