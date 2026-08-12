@@ -17,15 +17,17 @@ export default function Home() {
                         <Image
                             src={eventCategory.image}
                             alt={eventCategory.title}
-                            width={400}
-                            height={300}
-                            className="rounded-lg w-2/5"
+                            width={225}
+                            height={100}
+                            className="rounded-lg aspect-square object-cover"
                         />
                         <div className="flex flex-col">
                             <h2 className="text-xl font-bold mb-2">
                                 {eventCategory.title}
                             </h2>
-                            <p className="text-left">{eventCategory.description}</p>
+                            <p className="text-left">
+                                {eventCategory.description}
+                            </p>
                         </div>
                     </Link>
                 ))}

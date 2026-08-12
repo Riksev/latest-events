@@ -2,7 +2,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Image from "next/image";
 import Link from "next/link";
-import "./globals.css";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -26,7 +25,7 @@ export default function RootLayout({ children }) {
                 <title>{metadata.title}</title>
             </head>
             <body className={`${geistSans.variable} ${geistMono.variable}`}>
-                <header className="min-h-10 bg-linear-to-r from-white to-cyan-100 to-90%">
+                <header className="min-h-10 bg-linear-to-r from-white to-cyan-100 to-90% sticky top-0 z-50 border-b-2 border-mist-800">
                     <div className="flex justify-around items-center">
                         <Link href="/">
                             <Image
