@@ -44,8 +44,20 @@ main {
     margin: auto;
 }
 
+nav ul li {
+    @apply hover:text-blue-400 hover:cursor-pointer duration-400;
+}
+
 h1 {
     @apply uppercase font-bold text-3xl py-2;
+}
+
+.home-body {
+    @apply flex flex-col gap-12;
+}
+
+.home-body .card {
+    @apply flex flex-row gap-8 justify-center items-center hover:cursor-pointer hover:opacity-60 duration-400 hover:p-2;
 }
 
 @media (max-width: 800px) {

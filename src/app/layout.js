@@ -52,7 +52,7 @@ export default function RootLayout({ children }) {
                     </div>
                 </header>
                 <main>{children}</main>
-                <footer className="bg-mist-800 text-white text-center p-4">
+                <footer className="bg-mist-800 text-white text-center p-4 hover:text-blue-400 hover:cursor-pointer duration-400">
                     <p>{`${new Date().getFullYear()} | Yevhenii Holubovych`}</p>
                     <p>based on CodeCamp course</p>
                 </footer>
