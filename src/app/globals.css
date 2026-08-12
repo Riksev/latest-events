@@ -52,12 +52,16 @@ h1 {
     @apply uppercase font-bold text-3xl py-2;
 }
 
-.home-body {
-    @apply flex flex-col gap-12;
+.home-body .cards {
+    @apply flex flex-col gap-12 pt-4;
 }
 
 .home-body .card {
     @apply flex flex-row gap-8 justify-center items-center hover:cursor-pointer hover:opacity-60 duration-400 hover:p-2;
+}
+
+.home-body .cards > .card:nth-child(even) {
+    @apply flex-row-reverse;
 }
 
 @media (max-width: 800px) {
