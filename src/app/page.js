@@ -19,12 +19,10 @@ export default function Home() {
                             alt={eventCategory.title}
                             width={225}
                             height={100}
-                            className="rounded-lg aspect-square object-cover"
+                            className="image"
                         />
                         <div className="flex flex-col">
-                            <h2 className="text-xl font-bold mb-2">
-                                {eventCategory.title}
-                            </h2>
+                            <h2>{eventCategory.title}</h2>
                             <p className="text-left">
                                 {eventCategory.description}
                             </p>
