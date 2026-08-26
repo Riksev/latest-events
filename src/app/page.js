@@ -23,9 +23,7 @@ export default function Home() {
                         />
                         <div className="flex flex-col">
                             <h2>{eventCategory.title}</h2>
-                            <p className="text-left">
-                                {eventCategory.description}
-                            </p>
+                            <p>{eventCategory.description}</p>
                         </div>
                     </Link>
                 ))}

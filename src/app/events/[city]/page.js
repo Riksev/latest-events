@@ -17,19 +17,21 @@ export default async function EventsPerCityPage({ params }) {
         (event) => event.city.toLowerCase() === city,
     );
     return (
-        <div>
+        <div className="city_page">
             <h1>Events in {city[0].toUpperCase() + city.slice(1)}</h1>
-            <div>
+            <div className="cards">
                 {events.map((event) => (
                     <Link
                         href={`/events/${event.city.toLowerCase()}/${event.id}`}
                         key={event.id}
+                        className="card"
                     >
                         <Image
                             src={event.image}
                             alt={event.title}
-                            width={430}
-                            height={275}
+                            width={230}
+                            height={75}
+                            className="image"
                         />
                         <h2>{event.title}</h2>
                     </Link>

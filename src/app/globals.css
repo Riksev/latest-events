@@ -68,11 +68,11 @@ h3 {
 }
 
 .cards {
-    @apply flex flex-col gap-12 pt-4;
+    @apply flex flex-col gap-6 pt-4;
 }
 
 .home-body .card {
-    @apply flex flex-row gap-8 justify-center items-center;
+    @apply flex-row gap-8;
 }
 
 .home-body .cards > .card:nth-child(even) {
@@ -87,7 +87,12 @@ h3 {
 
 @media (max-width: 600px) {
     .home-body .card {
-        @apply !flex-col;
+        @apply !flex-col gap-4;
+    }
+
+    .card h2,
+    .card p {
+        @apply text-center;
     }
 }
 
@@ -99,8 +104,23 @@ h3 {
     @apply flex flex-row gap-x-2 justify-center items-center flex-wrap text-center;
 }
 
-.events_page {
+.events_page,
+.city_page {
     @apply m-auto flex flex-col items-center;
+}
+
+.city_page .cards {
+    @apply flex flex-row flex-wrap justify-center items-start gap-x-8 gap-y-4 mt-4;
+}
+
+.city_page .card {
+    @apply w-1/4 text-center;
+}
+
+@media (max-width: 600px) {
+    .city_page .card {
+        @apply !w-full;
+    }
 }
 
 /* @media (prefers-color-scheme: dark) {
