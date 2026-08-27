@@ -1,6 +1,6 @@
-import ImageWithFallback from "./components/ImageWithFallback";
+import ImageWithFallback from "./_components/ImageWithFallback";
 import Link from "next/link";
-import data from "@/data/data.json";
+import data from "@/app/_data/data.json";
 
 export default function Home() {
     const { events_categories } = data;

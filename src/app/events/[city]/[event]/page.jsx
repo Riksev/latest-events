@@ -1,5 +1,5 @@
-import ImageWithFallback from "@/app/components/ImageWithFallback";
-import data from "@/data/data.json";
+import ImageWithFallback from "@/app/_components/ImageWithFallback";
+import data from "@/app/_data/data.json";
 
 export async function generateStaticParams() {
     return data.allEvents.map((event) => ({
@@ -22,10 +22,28 @@ export default async function EventPage({ params }) {
                 alt={certainEvent.title}
                 width={430}
                 height={275}
-                className="image mb-4"
+                className="image my-4"
             />
-            <h2 className="self-start"> {city}</h2>
-            <p>{certainEvent.description}</p>
+            <form
+                method="post"
+                className="flex flex-col gap-2 mt-4 self-start "
+            >
+                <h2>{city}</h2>
+                <p>{certainEvent.description}</p>
+                <div className="flex gap-2 mt-4">
+                    <input
+                        type="email"
+                        placeholder="Enter your email"
+                        className="border border-mist-800 rounded-md p-2 hover:border-blue-400 hover:cursor-pointer duration-400"
+                    />
+                    <button
+                        className="bg-mist-800 text-white rounded-md p-2 hover:bg-blue-400 hover:cursor-pointer duration-400"
+                        type="submit"
+                    >
+                        Submit
+                    </button>
+                </div>
+            </form>
         </div>
     );
 }

@@ -1,6 +1,6 @@
 import Link from "next/link";
-import data from "@/data/data.json";
-import ImageWithFallback from "@/app/components/ImageWithFallback";
+import data from "@/app/_data/data.json";
+import ImageWithFallback from "@/app/_components/ImageWithFallback";
 
 export async function generateStaticParams() {
     return data.events_categories.map((category) => ({
