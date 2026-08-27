@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
-import data from "../../../../data/data.json";
+import data from "@/data/data.json";
+import ImageWithFallback from "@/app/components/ImageWithFallback";
 
 export async function generateStaticParams() {
     return data.events_categories.map((category) => ({
@@ -26,7 +26,7 @@ export default async function EventsPerCityPage({ params }) {
                         key={event.id}
                         className="card"
                     >
-                        <Image
+                        <ImageWithFallback
                             src={event.image}
                             alt={event.title}
                             width={230}

@@ -1,6 +1,6 @@
-import Image from "next/image";
+import ImageWithFallback from "./components/ImageWithFallback";
 import Link from "next/link";
-import data from "../../data/data.json";
+import data from "@/data/data.json";
 
 export default function Home() {
     const { events_categories } = data;
@@ -14,7 +14,7 @@ export default function Home() {
                         key={eventCategory.id}
                         className="card"
                     >
-                        <Image
+                        <ImageWithFallback
                             src={eventCategory.image}
                             alt={eventCategory.title}
                             width={225}

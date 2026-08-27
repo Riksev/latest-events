@@ -1,6 +1,6 @@
-import Image from "next/image";
+import ImageWithFallback from "@/app/components/ImageWithFallback";
 import Link from "next/link";
-import data from "../../../data/data.json";
+import data from "@/data/data.json";
 
 export default function EventsPage() {
     const { events_categories } = data;
@@ -14,7 +14,7 @@ export default function EventsPage() {
                         key={eventCategory.id + "2"}
                         className="card border-2 border-mist-800 rounded-xl"
                     >
-                        <Image
+                        <ImageWithFallback
                             src={eventCategory.image}
                             alt={eventCategory.title}
                             width={450}
