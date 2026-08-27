@@ -6,7 +6,7 @@ import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 
 export default function EventForm({ event }) {
-    const [typeOfMessage, setTypeOfMessage] = useState(false);
+    const [typeOfMessage, setTypeOfMessage] = useState("");
     const [message, setMessage] = useState("");
     const inputEmail = useRef();
     return (
@@ -27,11 +27,6 @@ export default function EventForm({ event }) {
                         },
                         body: JSON.stringify({ email, eventId: event }),
                     });
-                    if (!response.ok) {
-                        throw new Error(
-                            "Network response was not ok " + response.status,
-                        );
-                    }
                     const data = await response.json();
                     if (!data) {
                         throw new Error("Data in response was not ok", data);
