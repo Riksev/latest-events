@@ -15,15 +15,16 @@ export default async function EventPage({ params }) {
     const { allEvents } = data;
     const certainEvent = allEvents.find((ev) => ev.id === event);
     return (
-        <div>
+        <div className="event_page">
             <h1>{certainEvent.title}</h1>
-            <h2>{city}</h2>
             <ImageWithFallback
                 src={certainEvent.image}
                 alt={certainEvent.title}
                 width={430}
                 height={275}
+                className="image mb-4"
             />
+            <h2 className="self-start"> {city}</h2>
             <p>{certainEvent.description}</p>
         </div>
     );

@@ -105,7 +105,8 @@ h3 {
 }
 
 .events_page,
-.city_page {
+.city_page,
+.event_page {
     @apply m-auto flex flex-col items-center;
 }
 
