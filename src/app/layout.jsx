@@ -53,7 +53,9 @@ export default function RootLayout({ children }) {
                 </header>
                 <main>{children}</main>
                 <footer className="bg-mist-800 text-white text-center p-4 hover:text-blue-400 hover:cursor-pointer duration-400">
-                    <p>{`${new Date().getFullYear()} | Yevhenii Holubovych`}</p>
+                    <Link href="https://github.com/Riksev">
+                        {`${new Date().getFullYear()} | Yevhenii Holubovych`}
+                    </Link>
                 </footer>
             </body>
         </html>

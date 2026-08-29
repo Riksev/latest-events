@@ -9,6 +9,7 @@ export default function ImageWithFallback({
     width,
     height,
     className,
+    loading = "eager",
 }) {
     const fallback = "/images/logo_black.png";
     const [imgSrc, setImgSrc] = useState(src || fallback);
@@ -27,6 +28,7 @@ export default function ImageWithFallback({
                 setImgSrc(fallback);
                 setIsLoaded(true);
             }}
+            loading={loading}
         />
     );
 }

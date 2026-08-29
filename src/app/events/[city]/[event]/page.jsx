@@ -1,10 +1,14 @@
-import EventForm from "@/app/_components/EventForm";
-import ImageWithFallback from "@/app/_components/ImageWithFallback";
-import data from "@/app/_data/data.json";
+import EventForm from "@/components/EventForm";
+import ImageWithFallback from "@/components/ImageWithFallback";
+import { createClient } from "@/utils/supabase/client";
+import { createServer } from "@/utils/supabase/server";
+import { cookies } from "next/headers";
 
 export async function generateStaticParams() {
-    return data.allEvents.map((event) => ({
-        city: event.city.toLowerCase(),
+    const supabase = createClient();
+    const { data } = await supabase.from("events").select("id, category_id");
+    return data.map((event) => ({
+        city: event.category_id,
         event: event.id,
     }));
 }
@@ -13,16 +17,22 @@ export const dynamicParams = false;
 
 export default async function EventPage({ params }) {
     const { city, event } = await params;
-    const { allEvents } = data;
-    const certainEvent = allEvents.find((ev) => ev.id === event);
+    const cookieStore = await cookies();
+    const supabase = createServer(cookieStore);
+    const { data: certainEvent } = await supabase
+        .from("events")
+        .select("*")
+        .eq("id", event)
+        .single();
+
     return (
         <div className="event_page">
             <h1>{certainEvent.title}</h1>
             <ImageWithFallback
-                src={certainEvent.image}
+                src={certainEvent.image_url}
                 alt={certainEvent.title}
                 width={430}
-                height={275}
+                height={430}
                 className="image my-4"
             />
             <h2>{city}</h2>

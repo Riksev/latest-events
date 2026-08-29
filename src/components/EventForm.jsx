@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
+import { createClient } from "@/utils/supabase/client";
 
 export default function EventForm({ event }) {
     const [typeOfMessage, setTypeOfMessage] = useState("");
@@ -20,25 +21,26 @@ export default function EventForm({ event }) {
                     return;
                 }
                 try {
-                    const response = await fetch("/api/email-registration", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({ email, eventId: event }),
-                    });
-                    const data = await response.json();
-                    if (!data) {
-                        throw new Error("Data in response was not ok", data);
+                    const supabase = createClient();
+                    const { error } = await supabase
+                        .from("registrations")
+                        .insert({ event_id: event, email });
+                    if (error) {
+                        if (error.code === "23505") {
+                            console.log(
+                                "This user is already registered for this event!",
+                            );
+                            throw new Error("You are already registered.");
+                        }
+                        throw new Error(
+                            "An unexpected error occurred. Please try again.",
+                        );
                     }
-                    setMessage(data.message);
+                    setMessage("Registration successful!");
                     setTypeOfMessage("success");
                 } catch (error) {
-                    setMessage(
-                        "An error occurred while processing your request.\nTry again later or contact support.",
-                    );
+                    setMessage(error.message);
                     setTypeOfMessage("errorNetwork");
-                    console.error("Submitting form:", error);
                 }
             }}
             className="flex flex-col gap-2 mt-4 self-start"

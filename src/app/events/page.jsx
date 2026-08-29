@@ -1,28 +1,32 @@
-import ImageWithFallback from "@/app/_components/ImageWithFallback";
+import ImageWithFallback from "@/components/ImageWithFallback";
 import Link from "next/link";
-import data from "@/app/_data/data.json";
+import { createServer } from "@/utils/supabase/server";
+import { cookies } from "next/headers";
 
-export default function EventsPage() {
-    const { events_categories } = data;
+export default async function CategoriesPage() {
+    const cookieStore = await cookies();
+    const supabase = createServer(cookieStore);
+    const { data: categories } = await supabase.from("categories").select("*");
+
     return (
         <div className="events_page">
             <h1>Events</h1>
             <div className="cards">
-                {events_categories.map((eventCategory) => (
+                {categories.map((category) => (
                     <Link
-                        href={`/events/${eventCategory.id}`}
-                        key={eventCategory.id + "2"}
+                        href={`/events/${category.id}`}
+                        key={category.id + "2"}
                         className="card border-2 border-mist-800 rounded-xl"
                     >
                         <ImageWithFallback
-                            src={eventCategory.image}
-                            alt={eventCategory.title}
+                            src={category.image_url}
+                            alt={category.title}
                             width={450}
-                            height={350}
+                            height={450}
                             className="image"
                         />
                         <h2 className="absolute bottom-0 left-0 right-0 bg-linear-to-r from-white/85 to-cyan-100/85 to-90% shadow-lg text-center py-2">
-                            {eventCategory.title}
+                            {category.title}
                         </h2>
                     </Link>
                 ))}
