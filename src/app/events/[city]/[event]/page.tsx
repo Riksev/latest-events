@@ -21,18 +21,31 @@ export default async function EventPage({
         return notFound();
     }
 
+    const { data: registrationsCount } = await supabase.rpc(
+        "get_registration_count",
+        {
+            event_id_param: certainEvent.id,
+        },
+    );
+
     return (
         <div className="event_page">
-            <h1>{certainEvent?.title}</h1>
+            <h1>{certainEvent.title}</h1>
             <ImageWithFallback
-                src={String(certainEvent?.image_url)}
-                alt={String(certainEvent?.title)}
+                src={String(certainEvent.image_url)}
+                alt={String(certainEvent.title)}
                 width={430}
                 height={430}
                 className="image my-4"
             />
-            <h2>{city}</h2>
-            <p>{certainEvent?.description}</p>
+            <div className="flex items-center justify-between w-full">
+                <h2>{city}</h2>
+                <p className="p-2 bg-cyan-300 rounded-lg shadow-md font-bold text-sm">
+                    Registrations: {registrationsCount}
+                </p>
+            </div>
+
+            <p>{certainEvent.description}</p>
             <p className="self-start mt-4">Register for this event:</p>
             <EventForm event={event} />
         </div>

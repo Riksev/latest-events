@@ -5,17 +5,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 import { createClient } from "@/utils/supabase/client";
+import ImageWithFallback from "./ImageWithFallback";
+import { useRouter } from "next/navigation";
 
 export default function EventForm({ event }: { event: string }) {
+    const router = useRouter();
     const [typeOfMessage, setTypeOfMessage] = useState<
         "" | "success" | "errorEmail" | "errorNetwork"
     >("");
     const [message, setMessage] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const inputEmail = useRef<HTMLInputElement>(null);
+    const buttonSubmit = useRef<HTMLButtonElement>(null);
     return (
         <form
             onSubmit={async (e) => {
                 e.preventDefault();
+                setIsSubmitting(true);
+                buttonSubmit.current?.toggleAttribute("disabled");
                 const email: string = inputEmail.current?.value || "";
                 if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                     setMessage("Please enter a valid email address.");
@@ -40,6 +47,7 @@ export default function EventForm({ event }: { event: string }) {
                     }
                     setMessage("Registration successful!");
                     setTypeOfMessage("success");
+                    router.refresh();
                 } catch (error) {
                     if (error instanceof Error) {
                         setMessage(error.message);
@@ -48,6 +56,8 @@ export default function EventForm({ event }: { event: string }) {
                     }
                     setTypeOfMessage("errorNetwork");
                 }
+                setIsSubmitting(false);
+                buttonSubmit.current?.toggleAttribute("disabled");
             }}
             className="flex flex-col gap-2 mt-4 self-start"
         >
@@ -67,6 +77,7 @@ export default function EventForm({ event }: { event: string }) {
                 <button
                     className="bg-mist-800 text-white rounded-md py-2 px-4 hover:bg-blue-400 hover:cursor-pointer duration-400"
                     type="submit"
+                    ref={buttonSubmit}
                 >
                     Submit
                 </button>
@@ -81,25 +92,43 @@ export default function EventForm({ event }: { event: string }) {
                     Reset
                 </button>
             </div>
-            <span
-                className={`whitespace-pre-line text-shadow-2xl font-bold text-shadow-black ${
-                    typeOfMessage === "success"
-                        ? "text-blue-400"
-                        : "text-red-500"
-                }`}
-            >
-                {message + " "}
-                {typeOfMessage !== "" && (
-                    <FontAwesomeIcon
-                        icon={
-                            typeOfMessage === "success"
-                                ? faCircleCheck
-                                : faCircleXmark
-                        }
-                        color={typeOfMessage === "success" ? "green" : "red"}
+            {isSubmitting ? (
+                <div className="flex justify-start w-full text-left gap-4">
+                    <ImageWithFallback
+                        src={"/images/loading-gif.gif"}
+                        alt="Loading"
+                        width={20}
+                        height={20}
                     />
-                )}
-            </span>
+                    <p className="text-gray-500">Submitting...</p>
+                </div>
+            ) : (
+                <>
+                    <span
+                        className={`whitespace-pre-line text-shadow-2xl font-bold text-shadow-black ${
+                            typeOfMessage === "success"
+                                ? "text-blue-400"
+                                : "text-red-500"
+                        }`}
+                    >
+                        {message + " "}
+                        {typeOfMessage !== "" && (
+                            <FontAwesomeIcon
+                                icon={
+                                    typeOfMessage === "success"
+                                        ? faCircleCheck
+                                        : faCircleXmark
+                                }
+                                color={
+                                    typeOfMessage === "success"
+                                        ? "green"
+                                        : "red"
+                                }
+                            />
+                        )}
+                    </span>
+                </>
+            )}
         </form>
     );
 }

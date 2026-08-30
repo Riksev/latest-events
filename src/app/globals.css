@@ -43,6 +43,10 @@ main {
     margin: auto;
 }
 
+button:disabled {
+    @apply opacity-50 cursor-not-allowed bg-gray-500;
+}
+
 nav ul li {
     @apply hover:text-blue-400 hover:cursor-pointer duration-400;
 }
