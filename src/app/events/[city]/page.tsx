@@ -6,7 +6,10 @@ import { createServer } from "@/utils/supabase/server";
 export async function generateStaticParams() {
     const supabase = createClient();
     const { data: cities } = await supabase.from("categories").select("id");
-    return cities?.map((city) => ({
+    if (!cities) {
+        return [];
+    }
+    return cities.map((city) => ({
         city: city.id,
     }));
 }
