@@ -10,7 +10,7 @@ export default function EventForm({ event }: { event: string }) {
     const [typeOfMessage, setTypeOfMessage] = useState<
         "" | "success" | "errorEmail" | "errorNetwork"
     >("");
-    const [message, setMessage] = useState<string>("");
+    const [message, setMessage] = useState("");
     const inputEmail = useRef<HTMLInputElement>(null);
     return (
         <form
