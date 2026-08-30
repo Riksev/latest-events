@@ -1,20 +1,7 @@
 import Link from "next/link";
 import ImageWithFallback from "@/components/ImageWithFallback";
-import { createClient } from "@/utils/supabase/client";
 import { createServer } from "@/utils/supabase/server";
-
-export async function generateStaticParams() {
-    const supabase = createClient();
-    const { data: cities } = await supabase.from("categories").select("id");
-    if (!cities) {
-        return [];
-    }
-    return cities.map((city) => ({
-        city: city.id,
-    }));
-}
-
-export const dynamicParams = false;
+import { notFound } from "next/navigation";
 
 export default async function EventsPage({
     params,
@@ -27,6 +14,10 @@ export default async function EventsPage({
         .from("events")
         .select("*")
         .eq("category_id", resolvedParams.city);
+
+    if (!events) {
+        return notFound();
+    }
 
     return (
         <div className="city_page">
