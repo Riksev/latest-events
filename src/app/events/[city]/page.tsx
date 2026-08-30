@@ -2,22 +2,24 @@ import Link from "next/link";
 import ImageWithFallback from "@/components/ImageWithFallback";
 import { createClient } from "@/utils/supabase/client";
 import { createServer } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
 
 export async function generateStaticParams() {
     const supabase = createClient();
     const { data: cities } = await supabase.from("categories").select("id");
-    return cities.map((city) => ({
+    return cities?.map((city) => ({
         city: city.id,
     }));
 }
 
 export const dynamicParams = false;
 
-export default async function EventsPage({ params }) {
+export default async function EventsPage({
+    params,
+}: {
+    params: Promise<{ city: string }>;
+}): Promise<React.JSX.Element> {
     const resolvedParams = await params;
-    const cookieStore = await cookies();
-    const supabase = createServer(cookieStore);
+    const supabase = await createServer();
     const { data: events } = await supabase
         .from("events")
         .select("*")
@@ -31,15 +33,15 @@ export default async function EventsPage({ params }) {
                     resolvedParams.city.slice(1)}
             </h1>
             <div className="cards">
-                {events.map((event) => (
+                {events?.map((event) => (
                     <Link
                         href={`/events/${resolvedParams.city}/${event.id}`}
                         key={event.id}
                         className="card"
                     >
                         <ImageWithFallback
-                            src={event.image_url}
-                            alt={event.title}
+                            src={String(event.image_url)}
+                            alt={String(event.title)}
                             width={230}
                             height={230}
                             className="image"

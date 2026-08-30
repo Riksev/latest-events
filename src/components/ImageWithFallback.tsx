@@ -10,10 +10,17 @@ export default function ImageWithFallback({
     height,
     className,
     loading = "eager",
-}) {
-    const fallback = "/images/logo_black.png";
-    const [imgSrc, setImgSrc] = useState(src || fallback);
-    const [isLoaded, setIsLoaded] = useState(false);
+}: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+    className?: string;
+    loading?: "eager" | "lazy";
+}): React.JSX.Element {
+    const fallback: string = "/images/logo_black.png";
+    const [imgSrc, setImgSrc] = useState<string>(src || fallback);
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
     return (
         <Image
             src={imgSrc}

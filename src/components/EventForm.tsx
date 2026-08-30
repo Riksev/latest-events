@@ -6,15 +6,17 @@ import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 import { createClient } from "@/utils/supabase/client";
 
-export default function EventForm({ event }) {
-    const [typeOfMessage, setTypeOfMessage] = useState("");
-    const [message, setMessage] = useState("");
-    const inputEmail = useRef();
+export default function EventForm({ event }: { event: string }) {
+    const [typeOfMessage, setTypeOfMessage] = useState<
+        "" | "success" | "errorEmail" | "errorNetwork"
+    >("");
+    const [message, setMessage] = useState<string>("");
+    const inputEmail = useRef<HTMLInputElement>(null);
     return (
         <form
             onSubmit={async (e) => {
                 e.preventDefault();
-                const email = inputEmail.current.value;
+                const email: string = inputEmail.current?.value || "";
                 if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                     setMessage("Please enter a valid email address.");
                     setTypeOfMessage("errorEmail");
@@ -39,7 +41,11 @@ export default function EventForm({ event }) {
                     setMessage("Registration successful!");
                     setTypeOfMessage("success");
                 } catch (error) {
-                    setMessage(error.message);
+                    if (error instanceof Error) {
+                        setMessage(error.message);
+                    } else {
+                        setMessage("An unknown error occurred.");
+                    }
                     setTypeOfMessage("errorNetwork");
                 }
             }}
