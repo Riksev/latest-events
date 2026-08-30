@@ -10,14 +10,21 @@ export default async function EventsPage({
 }): Promise<React.JSX.Element> {
     const resolvedParams = await params;
     const supabase = await createServer();
+
+    const { data: category } = await supabase
+        .from("categories")
+        .select("*")
+        .eq("id", resolvedParams.city)
+        .single();
+
+    if (!category) {
+        return notFound();
+    }
+
     const { data: events } = await supabase
         .from("events")
         .select("*")
-        .eq("category_id", resolvedParams.city);
-
-    if (!events) {
-        return notFound();
-    }
+        .eq("category_id", category.id);
 
     return (
         <div className="city_page">

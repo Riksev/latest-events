@@ -14,6 +14,7 @@ export default async function EventPage({
         .from("events")
         .select("*")
         .eq("id", event)
+        .eq("category_id", city)
         .single();
 
     if (!certainEvent) {
