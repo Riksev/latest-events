@@ -27,6 +27,7 @@ export default function ImageWithFallback({
             alt={alt}
             width={width}
             height={height}
+            style={{ height: "auto" }}
             className={className + (isLoaded ? " opacity-100" : " opacity-0")}
             onLoad={() => {
                 setIsLoaded(true);

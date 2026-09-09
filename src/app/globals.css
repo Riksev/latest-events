@@ -48,7 +48,7 @@ button:disabled {
 }
 
 nav ul li {
-    @apply hover:text-blue-400 hover:cursor-pointer duration-400;
+    @apply hover:text-blue-400 hover:cursor-pointer duration-500;
 }
 
 .image {
@@ -68,7 +68,7 @@ h3 {
 }
 
 .card {
-    @apply flex flex-col justify-center items-center hover:cursor-pointer hover:opacity-60 duration-400 scale-95 hover:scale-100;
+    @apply flex flex-col justify-center items-center hover:cursor-pointer hover:opacity-60 duration-500 scale-95 hover:scale-100;
 }
 
 .cards {
@@ -110,8 +110,13 @@ h3 {
 
 .events_page,
 .city_page,
-.event_page {
+.event_page,
+.profile_page {
     @apply m-auto flex flex-col items-center;
+}
+
+.profile_page {
+    @apply w-1/2;
 }
 
 .city_page .cards {
@@ -125,6 +130,9 @@ h3 {
 @media (max-width: 600px) {
     .city_page .card {
         @apply !w-full;
+    }
+    .profile_page {
+        @apply w-full;
     }
 }
 

@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 export default function EventForm({ event }: { event: string }) {
     const router = useRouter();
     const [typeOfMessage, setTypeOfMessage] = useState<
-        "" | "success" | "errorEmail" | "errorNetwork"
+        "" | "success" | "error"
     >("");
     const [message, setMessage] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,7 +26,9 @@ export default function EventForm({ event }: { event: string }) {
                 const email: string = inputEmail.current?.value || "";
                 if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                     setMessage("Please enter a valid email address.");
-                    setTypeOfMessage("errorEmail");
+                    setTypeOfMessage("error");
+                    setIsSubmitting(false);
+                    buttonSubmit.current?.toggleAttribute("disabled");
                     return;
                 }
                 try {
@@ -54,7 +56,7 @@ export default function EventForm({ event }: { event: string }) {
                     } else {
                         setMessage("An unknown error occurred.");
                     }
-                    setTypeOfMessage("errorNetwork");
+                    setTypeOfMessage("error");
                 }
                 setIsSubmitting(false);
                 buttonSubmit.current?.toggleAttribute("disabled");
@@ -68,21 +70,21 @@ export default function EventForm({ event }: { event: string }) {
                     id="email"
                     placeholder="Enter your email"
                     className={`border p-2 rounded outline-none duration-400 ${
-                        typeOfMessage === "errorEmail"
+                        typeOfMessage === "error"
                             ? "border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500"
                             : "border-gray-300 hover:ring-1"
                     }`}
                     autoComplete="on"
                 />
                 <button
-                    className="bg-mist-800 text-white rounded-md py-2 px-4 hover:bg-blue-400 hover:cursor-pointer duration-400"
+                    className="bg-mist-800 text-white rounded-md py-2 px-4 hover:bg-blue-400 hover:cursor-pointer duration-500"
                     type="submit"
                     ref={buttonSubmit}
                 >
-                    Submit
+                    Sign Up
                 </button>
                 <button
-                    className="bg-mist-800 text-white rounded-md py-2 px-4 hover:bg-blue-400 hover:cursor-pointer duration-400"
+                    className="bg-mist-800 text-white rounded-md py-2 px-4 hover:bg-blue-400 hover:cursor-pointer duration-500"
                     type="reset"
                     onClick={() => {
                         setMessage("");

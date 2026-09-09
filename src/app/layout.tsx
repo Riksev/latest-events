@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { NextFontWithVariable } from "next/dist/compiled/@next/font";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const geistSans: NextFontWithVariable = Geist({
     variable: "--font-geist-sans",
@@ -43,7 +45,7 @@ export default function RootLayout({
                             />
                         </Link>
                         <nav>
-                            <ul className="flex no-underline list-none gap-2.5 font-semibold text-lg">
+                            <ul className="flex no-underline list-none gap-2.5 font-semibold text-lg items-center">
                                 <li>
                                     <Link href="/">Home</Link>
                                 </li>
@@ -53,12 +55,24 @@ export default function RootLayout({
                                 <li>
                                     <Link href="/about_us">About Us</Link>
                                 </li>
+                                <li>
+                                    <Link
+                                        href="/profile"
+                                        className="flex items-center gap-1"
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faUser}
+                                            size="sm"
+                                        />
+                                        <p>My Profile</p>
+                                    </Link>
+                                </li>
                             </ul>
                         </nav>
                     </div>
                 </header>
                 <main>{children}</main>
-                <footer className="bg-mist-800 text-white text-center p-4 hover:text-blue-400 hover:cursor-pointer duration-400">
+                <footer className="bg-mist-800 text-white text-center p-4 hover:text-blue-400 hover:cursor-pointer duration-500">
                     <Link href="https://github.com/Riksev">
                         {`${new Date().getFullYear()} | Yevhenii Holubovych`}
                     </Link>
