@@ -116,7 +116,7 @@ h3 {
 }
 
 .profile_page {
-    @apply w-1/2;
+    @apply w-1/2 text-left;
 }
 
 .city_page .cards {
@@ -125,6 +125,10 @@ h3 {
 
 .city_page .card {
     @apply w-1/4 text-center;
+}
+
+.auth_form {
+    @apply flex flex-col items-center justify-center w-full max-w-md mx-auto;
 }
 
 @media (max-width: 600px) {

@@ -1,21 +1,30 @@
 "use client";
 import { createClient } from "@/utils/supabase/client";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function AuthenticationForm() {
+export default function SignOutForm() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+
+    const router = useRouter();
     const supabase = createClient();
-    const handleSignOut = async () => {
+
+    const handleSignOut = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setError("");
         setLoading(true);
+
         try {
-            const { error } = await supabase.auth.signOut();
-            if (error) {
-                throw error;
+            const { error: signOutError } = await supabase.auth.signOut();
+            if (signOutError) {
+                throw signOutError;
             }
-        } catch (error) {
-            if (error instanceof Error) {
-                setError(error.message);
+            router.refresh();
+            router.push("/login");
+        } catch (err) {
+            if (err instanceof Error) {
+                setError(err.message);
             } else {
                 setError("An unknown error occurred while signing out.");
             }
