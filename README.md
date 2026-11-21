@@ -38,6 +38,6 @@ A full-stack web application for browsing upcoming events, inspecting event deta
 
 1. **Clone the repository:**
     ```bash
-    git clone [https://github.com/Riksev/latest-events.git](https://github.com/Riksev/latest-events.git)
+    git clone https://github.com/Riksev/latest-events.git
     cd latest-events
     ```
